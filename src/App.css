@@ -1,5 +1,21 @@
 .App {
   text-align: center;
+  margin-top: 0px;
+}
+
+form {
+  padding-top: 20px;
+}
+
+form>p {
+  margin: 0px 0px 20px;
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 4px;
+  font-family: inherit;
 }
 
 .App-logo {
@@ -11,6 +27,60 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.frase {
+  display: none;
+  font-weight: bold;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #dcdcdc1f;
+}
+
+.signo {
+  display: inline-block;
+}
+
+.signo>img {
+  width: 36px;
+  position: relative;
+  top: 11px;
+  left: 10px;
+}
+
+.side {
+  height: 100%;
+  width: 20%;
+  position: absolute;
+  background: gainsboro;
+  padding-top: 20px;
+}
+
+.frase2 {
+  display: grid;
+  font-weight: bold;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #dcdcdcc7;
+}
+
+.frase2 p {
+  margin: auto;
+  display: block;
+  color: black;
+  text-align: center;
+  border: 2px solid white;
+  padding: 20px;
+  background: wheat;
+  width: fit-content;
+  border-radius: 4px;
+  font-family: sans-serif;
 }
 
 .App-header {
@@ -32,6 +102,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
