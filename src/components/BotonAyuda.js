@@ -10,7 +10,7 @@ export default function BotonAyuda({ frase }) {
     }
     return (
         <div className="signo">
-            <img onClick={emergente} src="./question.png" alt=''/>
+            <img onClick={emergente} src="../question.png" alt=''/>
             <div ref={referencia} onClick={desaparecer} className="frase"><p><img alt='' width="20px" src="./question.png" /> {frase}</p></div>
         </div>
 

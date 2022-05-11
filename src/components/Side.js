@@ -15,6 +15,9 @@ export default function Side({ clientes }) {
     const buscar = (e) => {
         setNombrePresupuesto(e.target.value)
     }
+    const borrarTodo = () => {
+        localStorage.clear()
+    }
 
     return (
         <div className="side">
@@ -22,6 +25,7 @@ export default function Side({ clientes }) {
             <button name="alpha" onClick={ordenarA}>Ordenar alfabéticamente</button>
             <button name="date" onClick={ordenarA}>Ordenar por fecha</button>
             <button name="original" onClick={ordenarA}>Reiniciar orden</button>
+            <button onClick={borrarTodo}>Borrar localStorage</button>
             {
                 elementos.sort((a, b) => {
                     if (ordenar === 'alpha') {
@@ -43,13 +47,21 @@ export default function Side({ clientes }) {
                 ).map((element, key) => {
                     try {
                         if (element.name.match(nombrePresupuesto.toString())) {
+                            var texto = nombrePresupuesto.toString();
+                            const nuevaFecha = new Date(element.fecha).toDateString()
+                            if (nombrePresupuesto.toString() !== '') {
+                                var splitt = element.name.replace(texto,'99999').split('99999')
+                            }else{
+                                splitt = [element.name,'']
+                                texto = ''
+                            }
                             return <div key={key}>
-                                <p >Presupuesto: {element.name}</p>
+                                <hr></hr>
+                                <p >Presupuesto: {splitt[0]}<b>{texto}</b>{splitt[1]}</p>
                                 <p >Cliente: {element.cliente}</p>
                                 <p >Total: {element.total}€</p>
                                 <p >Servicios: {element.servicios}</p>
-                                <p>Fecha: {element.fecha.toDateString()}</p>
-                                <hr></hr>
+                                <p>Fecha: {nuevaFecha}</p>
                             </div>
                         }
                     }

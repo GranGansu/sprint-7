@@ -29,6 +29,16 @@ input {
   }
 }
 
+.rojo {
+  border: 4px solid red;
+  zoom: 1.09;
+}
+input.rojo::placeholder {
+  color: red;
+  font-size: x-small;
+  position: relative;
+  top: 6px;
+}
 .frase {
   display: none;
   font-weight: bold;
@@ -52,11 +62,11 @@ input {
 }
 
 .side {
-  height: 100%;
-  width: 20%;
+  max-width: 200px;
   position: absolute;
   background: gainsboro;
   padding-top: 20px;
+  min-height: 100vh;
 }
 
 .frase2 {
@@ -83,27 +93,6 @@ input {
   font-family: sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.home{
+  text-align: center;
 }
