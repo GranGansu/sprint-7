@@ -15,45 +15,42 @@ function App() {
   const refAds = useRef(null)
   //Estados
   const [estado, setEstado] = useState(0);
-  const [cliente, setCliente] = useState(new Map())
+  const [cliente, setCliente] = useState(new Map());
   const [[subtotal, total], setTotal] = useState([0, 0]);
   const [activo, setActivo] = useState('none');
   const [[pagina, idioma], setPagina] = useState([1, 1]);
   const nuevosElements = new Map();
   const precioPagina = 30;
-  const separadorElementos = '---'
-  const frases = ["En este componente debe indicar el número de páginas que tendrá su página web", "En este componente debe indicar la cantidad de idiomas que tendrá su página web"]
+  const separadorElementos = '---';
+  const frases = ["En este componente debe indicar el número de páginas que tendrá su página web", "En este componente debe indicar la cantidad de idiomas que tendrá su página web"];
 
   //local storage
   // eslint-disable-next-line
   useEffect(() => {
     //Relleno opciones
-    if (estado === 0) {
+    if (estado === 0) { //Si es la primera vez que se carga
       var verdadero;
-      var pagina
-      var idioma
-      if (getParametrosURL()) {
+      var pagina;
+      var idioma;
+      if (getParametrosURL()) { //Si hay algún campo TRUE en la URL
         verdadero = true;
         const barra = window.location.search.replace('?', '').split('&')
-        var web = (barra[0].match('true') !== null)
-        var seo = (barra[1].match('true') !== null)
-        var ads = (barra[2].match('true') !== null)
-        refWeb.current.checked = web
-        refSeo.current.checked = seo
-        refAds.current.checked = ads
-        seleccionServicios.set(refWeb.current.name, { name: refWeb.current.name, value: refWeb.current.value, activo: web })
-        seleccionServicios.set(refSeo.current.name, { name: refSeo.current.name, value: refSeo.current.value, activo: seo })
-        seleccionServicios.set(refAds.current.name, { name: refAds.current.name, value: refAds.current.value, activo: ads })
+        const objeto = { web: (barra[0].match('true') !== null), seo: (barra[1].match('true') !== null), ads: (barra[2].match('true') !== null) }
+        const checks = [refWeb, refSeo, refAds]
+        checks.forEach((value) => {
+          value.current.checked = objeto[value.current.name]
+          seleccionServicios.set(value.current.name, { name: value.current.name, value: value.current.value, activo: objeto[value.current.name] })
+        })
         pagina = parseInt(barra[3].match(/(\d+)/g)[0])
         idioma = parseInt(barra[4].match(/(\d+)/g)[0])
         almacenajeLocal(undefined, [pagina, idioma])
-      } else {
+      } else { //Si no, se lee desde el localStorage
         verdadero = false;
         refWeb.current.checked = (localStorage.web === 'true');
         refSeo.current.checked = (localStorage.seo === 'true');
         refAds.current.checked = (localStorage.ads === 'true');
-        pagina = ((localStorage.pagina === undefined) ? 1 : localStorage.pagina)
-        idioma = ((localStorage.idioma === undefined) ? 1 : localStorage.idioma)
+        pagina = ((localStorage.pagina === undefined) ? 1 : localStorage.pagina);
+        idioma = ((localStorage.idioma === undefined) ? 1 : localStorage.idioma);
       }
       setPagina([pagina, idioma])
       //Relleno el Side
@@ -69,7 +66,7 @@ function App() {
       calcularPrecio(pagina, idioma, verdadero)
       setEstado(1);
     }
-    actualizarURL();
+    setURL(); //Actualizo la URL cada vez que hay algún cambio
   })
 
   const calcularPaginas = (e) => {
@@ -85,7 +82,7 @@ function App() {
     return vertigo
   }
 
-  const actualizarURL = () => {
+  const setURL = () => {
     var newURL = '?';
     seleccionServicios.forEach((element) => {
       newURL += element.name + '=' + element.activo + '&'
@@ -145,18 +142,19 @@ function App() {
 
   const chequearCampos = () => {
     if (nomPre.current.value === '') {
-      nomPre.current.className = 'rojo'
-      nomPre.current.placeholder = '* campo obligatorio'
-      nomPre.current.focus()
+      nomPre.current.className = 'rojo';
+      nomPre.current.placeholder = '* campo obligatorio';
+      nomPre.current.focus();
     } else if (nomCli.current.value === '') {
-      nomPre.current.className = ''
-      nomCli.current.focus()
-      nomCli.current.placeholder = '* campo obligatorio'
-      nomCli.current.className = 'rojo'
+      nomPre.current.className = '';
+      nomCli.current.className = 'rojo';
+      nomCli.current.placeholder = '* campo obligatorio';
+      nomCli.current.focus();
     } else {
-      nomPre.current.className = ''
-      nomCli.current.className = ''
-      return true
+      //Reseteo campos
+      nomPre.current.className = '';
+      nomCli.current.className = '';
+      return true;
     }
   }
 
